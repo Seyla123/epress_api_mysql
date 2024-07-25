@@ -2,10 +2,12 @@ const express = require('express');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // Import the cors package
 
 dotenv.config(); // Load environment variables
 
 const app = express();
+app.use(cors()); // Use CORS middleware to allow all origins
 app.use(bodyParser.json()); // Middleware to parse JSON request bodies
 app.use(express.static('public')); // Serve static files from the public directory
 
@@ -53,6 +55,8 @@ app.post('/classes', (req, res) => {
     res.status(201).json({ message: 'Class created', id: result.insertId });
   });
 });
+
+// API endpoint to retrieve all classes
 app.get('/classes', (req, res) => {
   pool.query('SELECT * FROM Class', (err, results) => {
     if (err) {
@@ -63,6 +67,7 @@ app.get('/classes', (req, res) => {
     res.json(results);
   });
 });
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
