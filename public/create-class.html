@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Class</title>
+</head>
+<body>
+    <h1>Create a New Class</h1>
+    <form id="classForm">
+        <label for="class_name">Class Name:</label>
+        <input type="text" id="class_name" name="class_name" required>
+        <button type="submit">Create Class</button>
+    </form>
+    <div id="responseMessage"></div>
+    <script>
+        document.getElementById('classForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const className = document.getElementById('class_name').value;
+            
+            const response = await fetch('/classes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ class_name: className }),
+            });
+
+            const data = await response.json();
+            const messageDiv = document.getElementById('responseMessage');
+            if (response.ok) {
+                messageDiv.innerHTML = '<p>Class created successfully! ID: ' + data.id + '</p>';
+            } else {
+                messageDiv.innerHTML = '<p>Error: ' + data.error + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Node.js dependencies
+/node_modules
+
+# Production build
+/build
+
+# Cache
+/.cache
+
+# Logs
+/logs
+
+# Development dependencies
+/dev
+
+# dotenv environment variable files
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Git files
+/.git
+
+.vscode
